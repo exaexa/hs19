@@ -7,14 +7,27 @@ should do, you can very probably find it on
 
 ## Optional assignment 0: a bit of I/O practice first
 
-Write a program that computes average number of words on each line in the
-standard input. As the output, write only single number rounded to 2 decimal
-places.
+Write a program that computes average number of words (whitespace-separated
+groups of characters) on each line in the standard input. As the output, write
+only single number rounded to 2 decimal places.
 
 You will want to use `getContents :: IO String` for reading the whole input.
 
+For example, this input:
+
+```
+Ahoj nazdar
+αχωι
+```
+
+should output something like this:
+
+```
+1.5
+```
+
 Try to shorten and compact the program as much as possible using Functor and/or
-Applicative instances of the involved types. (Ideally, the solution can be
+Applicative instances of the involved types. (Ideally, the solution could get
 around 3x shorter than the text description above).
 
 ## Assignment 1 -- GameOfLife

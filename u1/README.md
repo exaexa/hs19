@@ -30,6 +30,10 @@ Try to shorten and compact the program as much as possible using Functor and/or
 Applicative instances of the involved types. (Ideally, the solution could get
 around 3x shorter than the text description above).
 
+This assignment is completely optional, but you may get useful comments about
+your code if you decide to submit. Also, the best (i.e. the shortest) submitted
+solution will win some kind of symbolic award.
+
 ## Assignment 1 -- GameOfLife
 
 [Brick](https://hackage.haskell.org/package/brick) is a library for building
@@ -53,10 +57,10 @@ Upon starting the program, the user should be presented with a board (at least
 There are no extra requirements, the main purpose of the assignment is to learn
 working with the compiler, libraries and Cabal. In particular, do not worry
 about using standard Haskell lists for arrays (although it is quite
-inefficient) and use any simple form of graphics for displaying the output
-(anything that is somehow readable by humans and interactive does). Avoid
-invalid operations that would crash the program (e.g. taking heads from empty
-lists).
+inefficient) and use any simple form of graphics for displaying the output --
+anything that is interactive and somehow readable by humans will do. Avoid
+invalid operations that would crash the program, e.g. taking heads from empty
+lists.
 
 Additionally, there are example programs that you may use for getting a simple
 base suitable for starting the solution:
@@ -68,33 +72,39 @@ base suitable for starting the solution:
   graphical interface. The comments are missing because most of the functions
   present are kindof self-explanatory.
 
-You will need to install dependency libraries before compiling or running the
-programs directly, using `cabal install brick` or `cabal install gloss`.
+You will need to install the dependency libraries before compiling or running
+the programs directly -- use either
+`cabal install brick`
+or
+`cabal install gloss`.
 
 All functions used in the example programs are documented; find the
 documentation using [Hoogle](https://hoogle.haskell.org/).
 
 ## How to submit
 
-Haskell ecosystem recognizes standard packages that are created using
-[Cabal](https://www.haskell.org/cabal/users-guide/index.html). Cabal is very
-similar to other packaging systems, such as npm, pip or even autotools. We will
-discuss it on the third lecture (alternatively, you should be able to find a
-lot of good documentation and tutorials online, or look at the example in
-slides in advance).
+Haskell ecosystem recognizes standard packages that are created and managed
+using [Cabal](https://www.haskell.org/cabal/users-guide/index.html). Cabal is
+very similar to other packaging systems, such as npm, pip, dpkg, or even
+autotools. We will discuss it more closely on the third lecture (alternatively,
+you should be able to find a lot of good documentation and tutorials online, or
+look at the examples in slides in advance).
 
-You should pack your solution into a cabal package called `YourSurnameN` where
-N is the number of the homework assignment (`0` or `1` in this case).
-When you have the package working, use `cabal sdist` to obtain a source
-distribution archive for the package (e.g. `YourSurnameN.tar.gz`). Upload this
-archive into the corresponding field in SIS study group interface.
+You must pack your solution into a cabal package called `YourSurnameN` where
+you substitute `YourSurname` for your surname, and `N` for the number of the
+homework assignment (`0` or `1` in this case).
+
+After you have the package working, use `cabal sdist` to obtain a source
+distribution archive for the package (usually something like
+`YourSurnameN.tar.gz`). Upload this archive into the corresponding field in SIS
+study group interface.
 
 ### Pre-submit checks
 
 Before submitting, please verify the following:
 
 1. The package can be compiled and installed on the unixes in the MFF computer
-    lab.
+   lab.
 2. Source code is formatted with `hindent` and still readable.
 3. Source code is checked with `hlint` and all warnings or suggestions are
    either fixed or pointless.

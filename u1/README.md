@@ -46,17 +46,20 @@ Upon starting the program, the user should be presented with a board (at least
 20x20 cells, add more if you wish) that can be controlled with following keys:
 
 - arrows move a "cursor"
-- pressing `x` changes the cell under the cursor (i.e. "flips" the value)
+- pressing `x` changes the cell under the cursor (i.e. "flips" the cell state
+  from empty to full or back)
 - pressing Space moves the cellular automaton one step forward
 
-There are no extra requirements -- do not worry about using standard Haskell
-lists for arrays (although it is slightly inefficient); use any form of
-graphics for displaying the output (the only requirement is that the
-interactive should be interactive). As usual, avoid invalid operations that
-would crash the program (e.g. taking heads from empty lists).
+There are no extra requirements, the main purpose of the assignment is to learn
+working with the compiler, libraries and Cabal. In particular, do not worry
+about using standard Haskell lists for arrays (although it is quite
+inefficient) and use any simple form of graphics for displaying the output
+(anything that is somehow readable by humans and interactive does). Avoid
+invalid operations that would crash the program (e.g. taking heads from empty
+lists).
 
 Additionally, there are example programs that you may use for getting a simple
-base suitable for expanding into solution:
+base suitable for starting the solution:
 
 - `brick.hs` (in this directory) contains a simple brick-based terminal
   interface that works with keys. There are some explanatory comments that

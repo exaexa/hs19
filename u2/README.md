@@ -159,6 +159,90 @@ Undeclared identifier 'c'
 Hint: Use some combination of Reader, Writer or State monad to avoid passing
 the environment around, and carrying error log out of the code manually.
 
+Simplification: Do not consider recursion or "functions referring to functions defined later in the file"; e.g. this code:
+```
+def a():
+  a()
+```
+...may complain about undefined `a`.
+
+Note that Slepýš programmers prefer using fixpoint combinator for recursion.
+
+# Hints
+
+Use [getArgs](https://hackage.haskell.org/package/base-4.12.0.0/docs/System-Environment.html#v:getArgs) and optionally [exitWith](https://hackage.haskell.org/package/base-4.12.0.0/docs/System-Exit.html#v:exitWith) to get reasonable unix-ish behavior. Do not care about other commandline arguments (like the expectable `--help`). OTOH, make sure you handle the missing or unreadable file correctly (e.g. using some of the error-catching IO functions).
+
+There are many ways to parse significant whitespace, but the most natural one is to first tokenize the source code, and add special tokens (e.g. `IndentIn` and `IndentOut`) to the places where indent width changes.
+
+Notably, you may avoid some of the ambiguity by parsing the following code:
+
+```
+if a: b
+      c
+      d
+```
+
+as:
+
+```
+if a: b
+{
+  c
+  d
+}
+```
+
+## Hints and reminders about utility monads
+
+### Parsers
+
+`Parser a` from slides is not directly available in Parsec/Megaparsec, but you usually define the type from the types that you want for error handling and parsing:
+
+```hs
+type Parser = Parsec Void String
+```
+
+...says that there will be no error messages (`Void`) and the parser parses the items out of `String`. After that, e.g. `Parser Int` is exactly the type that parses an integer out of current context.
+
+It is pretty customary to have 2 levels of parsing, first that creates tokens from string (`Parsec Void String [Token]`) and the second level that creates the AST from the list of tokens (`Parsec Void [Token] AST`). For parsing from strings, you will probably want to use the utility functions from [Text.Megaparsec.Char](https://hackage.haskell.org/package/megaparsec-7.0.5/docs/Text-Megaparsec-Char.html) or [Text.Megaparsec.Char.Lexer](https://hackage.haskell.org/package/megaparsec-7.0.5/docs/Text-Megaparsec-Char-Lexer.html) (or the corresponding varians for [Parsec](https://hackage.haskell.org/package/parsec-3.1.14.0)). For parsing custom token streams, you will probably need the [generic functions from here](https://hackage.haskell.org/package/megaparsec-7.0.5/docs/Text-Megaparsec.html#g:5).
+
+This is not mandatory -- feel free to do both levels of parsing in one Parser.
+
+### Reader&Writer monads
+
+`Reader` is a monad that transparently [passes an environment around](https://hackage.haskell.org/package/mtl-2.2.2/docs/Control-Monad-Reader.html); consider it as a read-only `State`. You may want to use it for task 2, for transparently passing the variables defined in scope.
+
+There are three main functions for working with `Reader` (the type annotations are simplified):
+
+- `runReader :: Reader env a -> env -> a` executes the computation (in the first parameter) with global state of type `env` (second parameter) and returns whatever it ahs returned (of type `a`)
+- in the computation, `ask :: Reader a a` reads and returns the global environment (similarly as `get` from `State`)
+- `local :: (env -> env) -> Reader env a -> Reader env a` modifies the environment using the function from the first parameter, and runs a computation (second parameter) with the modified environment. The current computation then continues with the original environment.
+
+For example:
+```hs
+f = do res <- local (*2) $ do a <- ask
+                              return [a,a]
+       return $ res++res
+
+main = print $ runReader f 1
+```
+will print `[2,2,2,2]`.
+
+`Writer` monad works the other way; it saves a write-only semigroup "state" that you can append to. The support functions are similar to Reader, except the most important ones are called `runWriter` and `tell`. It is great for collecting log messages for the error output of Task 2:
+
+```
+w = do tell ["ahoj"]
+       tell ["log 2"]
+       tell ["log 3"]
+       return 42
+
+main = print $ runWriter w
+```
+
+The program prints out `(42, ["ahoj","log 2","log 3"])`.
+
+Combination of Reader and Writer monads that can do both of these things at once can be either simulated by State (this is a simple solution that everyone should be able to do), implemented manually (for some bonus points), re-used from the library implementation of Reader-Writer-State monad combination called [RWS](https://hackage.haskell.org/package/transformers-0.5.6.2/docs/Control-Monad-Trans-RWS-CPS.html#t:RWS) (for more bonus points!), OR, most correctly, combined from the two basic monads using a monad transformer, as `ReaderT env (Writer log) a` (for a vast amount of bonus points!!!).
+
 # Submission
 
 Name the project `slepys-format`, pack it in a Cabal package as usual, and

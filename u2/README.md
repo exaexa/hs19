@@ -185,7 +185,10 @@ if a: b
 as:
 
 ```
-if a: b
+if a: {
+  b
+}
+
 {
   c
   d
@@ -242,6 +245,8 @@ main = print $ runWriter w
 The program prints out `(42, ["ahoj","log 2","log 3"])`.
 
 Combination of Reader and Writer monads that can do both of these things at once can be either simulated by State (this is a simple solution that everyone should be able to do), implemented manually (for some bonus points), re-used from the library implementation of Reader-Writer-State monad combination called [RWS](https://hackage.haskell.org/package/transformers-0.5.6.2/docs/Control-Monad-Trans-RWS-CPS.html#t:RWS) (for more bonus points!), OR, most correctly, combined from the two basic monads using a monad transformer, as `ReaderT env (Writer log) a` (for a vast amount of bonus points!!!).
+
+Finally, there are 2 different monad libraries that implement both Reader, Writer and RWS: `mtl` and `transformers`. These differ by construction (the first one uses multiparameter type classes, the second one uses associated types), but from your point of view, the functionality should be roughly the same. If you can, use `transformers` for it is newer, cleaner and generally better.
 
 # Submission
 

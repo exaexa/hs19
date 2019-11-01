@@ -68,7 +68,8 @@ Note that code blocks (as contained e.g. in the `if` statement) may be defined b
 ## Task 1
 
 Use either `parsec` or `megaparsec` and the pretty-printing library `pretty` to
-convert the (ugly) Slepýš code in a file specified by commandline argument.
+convert the (ugly) Slepýš code in a file specified by commandline argument to
+equivalent prettified code, and print it on standard output.
 
 - Add spaces around all operators, parentheses (ideally only on the outside),
   function calls (i.e. do not add space between the function name and the

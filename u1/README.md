@@ -79,7 +79,7 @@ or
 `cabal install gloss`.
 
 All functions used in the example programs are documented; find the
-documentation using [Hoogle](https://hoogle.haskell.org/).
+documentation using [Hoogle](https://hoogle.haskell.org/). Additionally, all Gloss-drawable picture components are [here](https://hackage.haskell.org/package/gloss-1.13.1.1/docs/Graphics-Gloss-Data-Picture.html); and some extra Brick widgets and layout tools are [here](https://hackage.haskell.org/package/brick-0.50/docs/Brick-Widgets-Core.html).
 
 ## How to submit
 
@@ -96,8 +96,9 @@ homework assignment (`0` or `1` in this case).
 
 After you have the package working, use `cabal sdist` to obtain a source
 distribution archive for the package (usually something like
-`YourSurnameN.tar.gz`). Upload this archive into the corresponding field in SIS
-study group interface.
+`YourSurnameN.tar.gz`, or perhaps `YourSurnameN-0.1.0.0.tar.gz` with version
+string). Upload this archive into the corresponding field in SIS study group
+interface.
 
 ### Pre-submit checks
 
@@ -105,6 +106,7 @@ Before submitting, please verify the following:
 
 1. The package can be compiled and installed on the unixes in the MFF computer
    lab.
+2. `cabal run` executes the program.
 2. Source code is formatted with `hindent` and still readable.
 3. Source code is checked with `hlint` and all warnings or suggestions are
    either fixed or pointless.

@@ -58,7 +58,7 @@ following constructions:
   operators `+`, `-`, `*`, `/` and parentheses
 - function calls formatted using parentheses and commas as usual, e.g.
   `asd(1,2,345)`
-- statements (a single expressions on a line)
+- statements (each statement consists of a single expression on a line)
 - assignments (a single variable name, followed by `=` and an expression on a line)
 - `if`, `if`+`else` and `while` statements, as in python (with colons)
 - function definitions, as in python, but without default and keyword arguments.
@@ -78,10 +78,11 @@ equivalent prettified code, and print it on standard output.
 - Normalize the whitespace (remove duplicate or unnecessary padding and indentation)
 - Wrap all code blocks in braces `{` and `}` and add semicolons after each
   statement and assignment as in C, so that the resulting code is not
-  indentation-dependent
+  indentation-dependent (Note that because of the braces, your result will
+  _not_ match the actual requirements for valid Slepýš code.)
 - Reject invalid code (optionally with some good error message)
 
-You can assume that there are either only tab characters or only spaces used
+You can assume that there are _either_ only tab characters or only spaces used
 for indentation (i.e. print an error if you find any of the other kind). If
 possible, prefer spaces.
 
@@ -164,10 +165,27 @@ Simplification: Do not consider recursion or "functions referring to functions d
 ```
 def a():
   a()
-```
-...may complain about undefined `a`.
 
-Note that Slepýš programmers prefer using fixpoint combinator for recursion.
+a()
+```
+...may complain about undefined `a` in definition of `a`.
+
+##### Unimportant side note
+
+Slepýš programmers prefer using fixpoint combinator for recursion:
+
+```
+def a(rec):
+  def f():
+    rec()
+  f
+
+def fix(f):
+  def fomega(x): f(x(x))
+  fomega(fomega)
+
+fix(a)()
+```
 
 # Hints
 
@@ -247,12 +265,14 @@ The program prints out `(42, ["ahoj","log 2","log 3"])`.
 
 Combination of Reader and Writer monads that can do both of these things at once can be either simulated by State (this is a simple solution that everyone should be able to do), implemented manually (for some bonus points), re-used from the library implementation of Reader-Writer-State monad combination called [RWS](https://hackage.haskell.org/package/transformers-0.5.6.2/docs/Control-Monad-Trans-RWS-CPS.html#t:RWS) (for more bonus points!), OR, most correctly, combined from the two basic monads using a monad transformer, as `ReaderT env (Writer log) a` (for a vast amount of bonus points!!!).
 
-Finally, there are 2 different monad libraries that implement both Reader, Writer and RWS: `mtl` and `transformers`. These differ by construction (the first one uses multiparameter type classes, the second one uses associated types), but from your point of view, the functionality should be roughly the same. If you can, use `transformers` for it is newer, cleaner and generally better.
+Finally, N.B. there are 2 different monad libraries that implement both Reader, Writer and RWS: `mtl` and `transformers`. These differ by construction (the first one uses multiparameter type classes, the second one uses associated types), but from your point of view, the functionality should be roughly the same. If you can, use `transformers` for it is newer, cleaner and generally better.
 
 # Submission
 
-Name the project `slepys-format`, pack it in a Cabal package as usual, and
-submit to the corresponding field in SIS.
+Create a cabal package named `yourSurname2` (just like in Homework 1).
+Configure cabal that the package builds a single executable called
+`slepys-format`. Use `cabal sdist` to obtain a redistributable, and submit to
+the corresponding field in SIS as usual.
 
 Before submission, check that the program can be executed using `cabal run`,
 there are no reasonable deficiencies that would be reported by `hlint`, and the

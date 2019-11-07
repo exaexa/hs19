@@ -78,8 +78,10 @@ equivalent prettified code, and print it on standard output.
 - Normalize the whitespace (remove duplicate or unnecessary padding and indentation)
 - Wrap all code blocks in braces `{` and `}` and add semicolons after each
   statement and assignment as in C, so that the resulting code is not
-  indentation-dependent (Note that because of the braces, your result will
-  _not_ match the actual requirements for valid Slepýš code.)
+  indentation-dependent (Note that because of the newly added braces and
+  semicolons, the output of your program will _not_ be valid Slepýš code -- if
+  you try to prettify it again using your program, it may reject the
+  already-prettified version.)
 - Reject invalid code (optionally with some good error message)
 
 You can assume that there are _either_ only tab characters or only spaces used
@@ -106,15 +108,15 @@ slepys-format test.slepys
 The output may look as follows:
 ```
 def test(x): {
-  print(x + x)
+  print(x + x);
 }
 
-i = 0
-j = read()
+i = 0;
+j = read();
 while i < j: {
-  test(i)
-  i = i + 1
-}
+  test(i);
+  i = i + 1;
+};
 ```
 
 Conversely, every line of this code should be rejected for many different reasons:
@@ -142,7 +144,7 @@ For example, checking the following code:
 ```
 d = "asd"
 def a(b):
-  c = b + d + e
+  c = b+d+e
 print(a(c))
 ```
 
@@ -161,7 +163,7 @@ Undeclared identifier 'c'
 Hint: Use some combination of Reader, Writer or State monad to avoid passing
 the environment around, and carrying error log out of the code manually.
 
-Simplification: Do not consider recursion or "functions referring to functions defined later in the file"; e.g. this code:
+Simplification: Do not consider recursion nor the "functions referring to functions defined later in the file"). E.g. this code:
 ```
 def a():
   a()
@@ -205,13 +207,13 @@ as:
 
 ```
 if a: {
-  b
-}
+  b;
+};
 
 {
-  c
-  d
-}
+  c;
+  d;
+};
 ```
 
 ## Hints and reminders about utility monads

@@ -55,7 +55,7 @@ following constructions:
 - expressions, formed from numeric literals (like `-1`, `0` or `0123`) and
   string literals (`"asad"` or `"asda\nasda"`), variable names consisting of
   characters `a`-`z`, `A`-`Z` and `_`, and combinations thereof using binary
-  operators `+`, `-`, `*`, `/` and parentheses
+  operators `+`, `-`, `*`, `/`, `<`, `>` and parentheses
 - function calls formatted using parentheses and commas as usual, e.g.
   `asd(1,2,345)`
 - statements (each statement consists of a single expression on a line)
@@ -63,7 +63,7 @@ following constructions:
 - `if`, `if`+`else` and `while` statements, as in python (with colons)
 - function definitions, as in python, but without default and keyword arguments.
 
-Note that code blocks (as contained e.g. in the `if` statement) may be defined by significant whitespace indentation.
+Note that code blocks (as contained e.g. in the `if` statement) are defined by significant whitespace indentation.
 
 ## Task 1
 

@@ -254,7 +254,7 @@ will print `[2,2,2,2]`.
 
 `Writer` monad works the other way; it saves a write-only semigroup "state" that you can append to. The support functions are similar to Reader, except the most important ones are called `runWriter` and `tell`. It is great for collecting log messages for the error output of Task 2:
 
-```
+```hs
 w = do tell ["ahoj"]
        tell ["log 2"]
        tell ["log 3"]

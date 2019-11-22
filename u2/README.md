@@ -3,6 +3,8 @@
 
 Reminder: This is about applicatives and monads. Look in the slides for inspiration.
 
+**NEWS!** [Solution template is available.](minisnake.hs)
+
 ## Background
 
 On the lectures, we have talked about monadic parsers, e.g. the ones from packages `parsec` and `megaparsec`. These allow very natural constructions of powerful, fast parsing libraries.

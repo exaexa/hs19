@@ -63,8 +63,10 @@ Take your (or any other) implementation of Game of Life from Assignment 1 and al
 
 The recommended implementation strategy is as follows:
 - Implement the receiving and sending part of the communication in separate lightweight threads, using appropriate communication variables for communicating with the main thread (of Gloss or Brick). With Gloss, beware that causing a blocking read in the main thread freezes the whole interface (which is not desirable). With Brick, you will need to solve the background update problem, when Brick is waiting for user input and neglecting whatever is happening with the network and communication variables (that can be solved by using a custom event type, as demonstrated in [this Brick tutorial](https://samtay.github.io/articles/brick.html); look for the section about "Variable speed").
-- Show whatever board the server has sent you (do not modify the board yourself in reaction to user events). You can assume that the latency is virtually zero. The only additional thing that you need to show is the cursor; the position of the cursor is not announced to the server, and generally completely independent on the whatever the server knows.
+- Show whatever board the server has sent you (do not modify the board yourself in reaction to user events). The only additional thing that you need to show is the cursor; the position of the cursor is not announced to the server, and generally completely independent of whatever the server thinks.
 - In case of user input events (basically "flip" and "step"), send a matching message to the communication-handling thread, let it send a request to the server, and do not change the board until the new board state arrives from the server.
+- You can assume that the latency is virtually zero. Also, it is not necessary to react to any network failures (e.g. connection loss).
+
 
 ### Specific requirements:
 

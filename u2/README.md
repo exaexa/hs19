@@ -191,7 +191,13 @@ fix(a)()
 
 # Hints
 
+If you are unsure how to start, [use this implementation](minisnake.hs) of a 2-level parser of a primitive language (of string-integer pairs) and expand it to fully support Slepys.
+
+## General hints
+
 Use [getArgs](https://hackage.haskell.org/package/base-4.12.0.0/docs/System-Environment.html#v:getArgs) and optionally [exitWith](https://hackage.haskell.org/package/base-4.12.0.0/docs/System-Exit.html#v:exitWith) to get reasonable unix-ish behavior. Do not care about other commandline arguments (like the expectable `--help`). OTOH, make sure you handle the missing or unreadable file correctly (e.g. using some of the error-catching IO functions).
+
+## Parsing ambiguities
 
 There are many ways to parse significant whitespace, but the most natural one is to first tokenize the source code, and add special tokens (e.g. `IndentIn` and `IndentOut`) to the places where indent width changes.
 

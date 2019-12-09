@@ -122,7 +122,7 @@ runConn com h = do
   let recvLoop = loop
         where
           loop = do
-            cmd <- words . init <$> hGetLine h
+            cmd <- words . filter (> ' ') <$> hGetLine h --filter out \r sent by telnet (this was corrected from earlier 'init' that just discarded the last character)
             case cmd of
               ["poll"] -> do
                 writeChan (inChan com) DoPoll

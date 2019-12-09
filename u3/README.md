@@ -57,6 +57,8 @@ Connection closed by foreign host.
 
 In the example, the client drew a canonical [glider](https://en.wikipedia.org/wiki/Glider_(Conway's_Life)) to the upper left corner of the board, and let it advance 4 times, in reaction to which the glider has moved by offset [1,1]).
 
+You may want to try [another test program](sendcmd.hs) that resolves the address of the server, connects to it, sends a simple `flip 0 0` command, and prints out one line received on the input. (Note that the program disconnects by just closing the socket, not by sending `exit` command. That will cause the server to complain about connections getting unexpectedly closed.)
+
 ## Task 1
 
 Take your (or any other) implementation of Game of Life from Assignment 1 and allow the player to play with others using the supplied server.
